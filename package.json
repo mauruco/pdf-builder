@@ -1,5 +1,5 @@
 {
-  "name": "pdf-landscape",
+  "name": "pdf-builder",
   "version": "1.0.0",
   "description": "",
   "main": "dist/bundle.js",
