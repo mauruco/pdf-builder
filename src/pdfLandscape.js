@@ -1,7 +1,7 @@
 import * as jsPDF from 'jspdf';
 import domtoimage from 'dom-to-image';
 
-class PDFLandscape {
+export default class PDFLandscape {
   scaleFactor = 1.62;
 
   scaleFactorPDF = 0.62;
@@ -37,14 +37,14 @@ class PDFLandscape {
     position: 'absolute',
     top: '20px',
     left: '20px',
-    width: '158px',
-    height: '46px',
+    width: '1147px',
+    height: '802px',
   };
 
   titleStyle = {
     position: 'absolute',
     top: '28px',
-    left: '200px',
+    left: '190px',
     fontSize: '24px',
   };
 
@@ -124,6 +124,8 @@ class PDFLandscape {
     this.pageStyle.height = `${parseInt(this.pageStyle.height, 10) * factor}px`;
     this.logoStyle.top = `${parseInt(this.logoStyle.top, 10) * factor}px`;
     this.logoStyle.left = `${parseInt(this.logoStyle.left, 10) * factor}px`;
+    this.logoStyle.width = `${parseInt(this.logoStyle.width, 10) * factor}px`;
+    this.logoStyle.height = `${parseInt(this.logoStyle.height, 10) * factor}px`;
     this.titleStyle.top = `${parseInt(this.titleStyle.top, 10) * factor}px`;
     this.titleStyle.left = `${parseInt(this.titleStyle.left, 10) * factor}px`;
     this.titleStyle.fontSize = `${parseInt(this.titleStyle.fontSize, 10) * factor}px`;
@@ -237,14 +239,20 @@ class PDFLandscape {
     Object.assign(page.style, this.resetStyle);
     Object.assign(page.style, this.pageStyle);
     if (pageContent.style) Object.assign(page.style, this.isObejct(pageContent.pageStyle));
-    const logo = document.createElement('img');
+    const logo = document.createElement('div');
     Object.assign(logo.style, this.resetStyle);
     Object.assign(logo.style, this.logoStyle);
-    logo.alt = 'logo';
-    logo.src = 'data:image/png;base64,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';
-    if (pageContent.logo && pageContent.logo.src) logo.src = pageContent.logo.src;
-    if (pageContent.logo && pageContent.logo.alt) logo.alt = pageContent.logo.src;
-    if (pageContent.logo && pageContent.logo.style) Object.assign(logo.style, this.isObejct(pageContent.logo.style));
+    logo.className = 'teste';
+    console.log('aqui');
+    console.log(logo);
+    if (pageContent.logo && pageContent.logo.src && pageContent.logo && pageContent.logo.alt) {
+      console.log('aqui2');
+      const img = document.createElement('img');
+      if (pageContent.logo && pageContent.logo.src) img.src = pageContent.logo.src;
+      if (pageContent.logo && pageContent.logo.alt) img.alt = pageContent.logo.src;
+      if (pageContent.logo && pageContent.logo.style) Object.assign(img.style, this.isObejct(pageContent.logo.style));
+      logo.appendChild(img);
+    }
     const title = document.createElement('div');
     if (pageContent.title) title.innerHTML = pageContent.title.innerHTML || '';
     Object.assign(title.style, this.resetStyle);
@@ -274,7 +282,7 @@ class PDFLandscape {
     if (pageContent.table && pageContent.table.style) Object.assign(table.style, this.isObejct(pageContent.table.style));
     if (pageContent.table && pageContent.table.thead) this.makeThead(table, Array.isArray(pageContent.table.thead) ? pageContent.table.thead : []);
     if (pageContent.table && pageContent.table.tbody) this.makeTbody(table, Array.isArray(pageContent.table.tbody) ? pageContent.table.tbody : []);
-    if (logo.src && logo.alt) page.appendChild(logo);
+    page.appendChild(logo);
     page.appendChild(title);
     page.appendChild(descLeft);
     page.appendChild(descRight);
@@ -384,6 +392,3 @@ class PDFLandscape {
     })();
   }
 }
-
-
-export default PDFLandscape;
