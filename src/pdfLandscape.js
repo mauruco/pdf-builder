@@ -1,40 +1,6 @@
 import * as jsPDF from 'jspdf';
 import domtoimage from 'dom-to-image';
-/*
-EXEMPLO:
-Para fazer um pdf multi pagina é só adionar mais elementos ao array pdf, expl: const pdf = [{ title: { innerHTML: 'teste1' } }, { title: { innerHTML: 'teste2' } }];
-const pdf = [
-  { // todas as propriedades são opcionais
-    style: {}, //  (wrapper style) javascript style, expl: backgroundColor e não background-color
-    logo: { src: '', alt: 'logo', style: {} }, // use src="base64Encoded" expl: src="data:image/png;base64,HDOIFF...."
-    title: { innerHTML: 'Lorem Ipsum Dollor', style: {} }, // innerHTML aceita tbm html, expl: innerHTML: '<span class="red" style="color: 'red';">Lorem Ipsum</spam>'
-    descLeft: { innerHTML: 'Lorem Ipsum Dollor', style: {} },
-    descRight: { innerHTML: 'Lorem Ipsum Dollor', style: {} },
-    counter: { innerHTML: 'page $1/$2', style: {} }, // $1 = pagina atual, $2 = paginas total
-    table: {
-      style: {},
-      thead: [
-        [{ innerHTML: 'dados titulo', style: {} }, { innerHTML: 'dados titulo', style: {} }],
-      ],
-      tbody: [
-        [{ innerHTML: 'dados', style: {} }, { innerHTML: 'dados', style: {} }],
-        [{ innerHTML: 'dados', style: {} }, { innerHTML: 'dados', style: {} }],
-        [{ innerHTML: 'dados', style: {} }, { innerHTML: 'dados', style: {} }],
-        [{ innerHTML: 'dados', style: {} }, { innerHTML: 'dados', style: {} }],
-        [{ innerHTML: 'dados', style: {} }, { innerHTML: 'dados', style: {} }],
-        [{ innerHTML: 'dados', style: {} }, { innerHTML: 'dados', style: {} }],
-        [{ innerHTML: 'dados', style: {} }, { innerHTML: 'dados', style: {} }],
-        [{ innerHTML: 'dados', style: {} }, { innerHTML: 'dados', style: {} }],
-        [{ innerHTML: 'dados', style: {} }, { innerHTML: 'dados', style: {} }],
-        [{ innerHTML: 'dados', style: {} }, { innerHTML: 'dados', style: {} }],
-        [{ innerHTML: 'dados', style: {} }, { innerHTML: 'dados', style: {} }],
-        [{ innerHTML: 'dados', style: {} }, { innerHTML: 'dados', style: {} }],
-      ],
-    },
-  },
-];
-new PDFFinanceiro(pdf, 'nomeArquivo');
-*/
+
 class PDFLandscape {
   scaleFactor = 1.62;
 
