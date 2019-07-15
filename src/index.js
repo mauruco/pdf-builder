@@ -418,35 +418,3 @@ class PDFFinanceiro {
     })();
   }
 }
-
-const pdf = [
-  { // todas as propriedades são opcionais
-    style: {}, // javascript style, expl: backgroundColor e não background-color
-    logo: { src: '', alt: 'logo', style: {} }, // use src="base64Encoded"
-    title: { innerHTML: 'Lorem Ipsum Dollor', style: {} }, // innerHTML aceita tbm html, expl: innerHTML: '<span class="red" style="color: 'red';">Lorem Ipsum</spam>'
-    descLeft: { innerHTML: 'Lorem Ipsum Dollor', style: {} },
-    descRight: { innerHTML: 'Lorem Ipsum Dollor', style: {} },
-    counter: { innerHTML: 'page $1/$2', style: {} }, // $1 = pagina atual, $2 = paginas total
-    table: {
-      style: {},
-      thead: [
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-      ],
-      tbody: [
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-        [{ innerHTML: 'Data Vencimento', style: {} }, { innerHTML: 'Remessa', style: {} }, { innerHTML: 'Voucher', style: {} }, { innerHTML: 'Tipo Compromisso', style: {} }, { innerHTML: 'CPF/CNPJ', style: {} }, { innerHTML: 'Nome', style: {} }, { innerHTML: 'Val. Bruto', style: {} }, { innerHTML: 'Val. IRRF', style: {} }, { innerHTML: 'Val. Líquido', style: {} }, { innerHTML: 'Tarifa Bancária', style: {} }],
-      ],
-    },
-  },
-];
-new PDFFinanceiro(pdf, 'nomeArquivo');
