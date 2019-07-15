@@ -1,4 +1,4 @@
-const PDFLandscape = require('./pdfLandscape').default;
+const PDFLandscape = require('./PDFLandscape').default;
 /*
 EXPL:
 
