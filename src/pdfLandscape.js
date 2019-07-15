@@ -177,11 +177,16 @@ export default class PDFLandscape {
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-          const promises = [];
+          let promises = [];
           pages.map((page, i) => {
-            const html = this.addPage(page, (i + 1), pages.length);
-            promises.push(this.takeAShot(html));
+            promises.push(this.addPage(page, (i + 1), pages.length));
             return page;
+          });
+          const htmls = await Promise.all(promises);
+          promises = [];
+          htmls.map((html) => {
+            promises.push(this.takeAShot(html));
+            return html;
           });
           const shots = await Promise.all(promises);
           resolve(shots);
@@ -235,60 +240,63 @@ export default class PDFLandscape {
   }
 
   addPage(pageContent, counter, total) {
-    const page = document.createElement('div');
-    Object.assign(page.style, this.resetStyle);
-    Object.assign(page.style, this.pageStyle);
-    if (pageContent.style) Object.assign(page.style, this.isObejct(pageContent.pageStyle));
-    const logo = document.createElement('div');
-    Object.assign(logo.style, this.resetStyle);
-    Object.assign(logo.style, this.logoStyle);
-    logo.className = 'teste';
-    console.log('aqui');
-    console.log(logo);
-    if (pageContent.logo && pageContent.logo.src && pageContent.logo && pageContent.logo.alt) {
-      console.log('aqui2');
-      const img = document.createElement('img');
-      if (pageContent.logo && pageContent.logo.src) img.src = pageContent.logo.src;
-      if (pageContent.logo && pageContent.logo.alt) img.alt = pageContent.logo.src;
-      if (pageContent.logo && pageContent.logo.style) Object.assign(img.style, this.isObejct(pageContent.logo.style));
-      logo.appendChild(img);
-    }
-    const title = document.createElement('div');
-    if (pageContent.title) title.innerHTML = pageContent.title.innerHTML || '';
-    Object.assign(title.style, this.resetStyle);
-    Object.assign(title.style, this.titleStyle);
-    if (pageContent.title && pageContent.title.style) Object.assign(title.style, this.isObejct(pageContent.title.style));
-    const descLeft = document.createElement('div');
-    if (pageContent.descLeft) descLeft.innerHTML = pageContent.descLeft.innerHTML || '';
-    Object.assign(descLeft.style, this.resetStyle);
-    Object.assign(descLeft.style, this.descLeftStyle);
-    if (pageContent.descLeft && pageContent.descLeft.style) Object.assign(descLeft.style, this.isObejct(pageContent.descLeft.style));
-    const descRight = document.createElement('div');
-    if (pageContent.descRight) descRight.innerHTML = pageContent.descRight.innerHTML || '';
-    Object.assign(descRight.style, this.resetStyle);
-    Object.assign(descRight.style, this.descRightStyle);
-    if (pageContent.descRight && pageContent.descRight.style) Object.assign(descRight.style, this.isObejct(pageContent.descRight.style));
-    const pageCounter = document.createElement('div');
-    Object.assign(pageCounter.style, this.resetStyle);
-    Object.assign(pageCounter.style, this.pageCounterStyle);
-    pageCounter.innerHTML = `${counter}/${total}`;
-    if (pageContent.counter && pageContent.counter.innerHTML) {
-      pageCounter.innerHTML = pageContent.counter.innerHTML.replace('$1', counter);
-      pageCounter.innerHTML = pageCounter.innerHTML.replace('$2', total);
-    }
-    const table = document.createElement('table');
-    Object.assign(table.style, this.resetStyle);
-    Object.assign(table.style, this.tableStyle);
-    if (pageContent.table && pageContent.table.style) Object.assign(table.style, this.isObejct(pageContent.table.style));
-    if (pageContent.table && pageContent.table.thead) this.makeThead(table, Array.isArray(pageContent.table.thead) ? pageContent.table.thead : []);
-    if (pageContent.table && pageContent.table.tbody) this.makeTbody(table, Array.isArray(pageContent.table.tbody) ? pageContent.table.tbody : []);
-    page.appendChild(logo);
-    page.appendChild(title);
-    page.appendChild(descLeft);
-    page.appendChild(descRight);
-    page.appendChild(pageCounter);
-    page.appendChild(table);
-    return page;
+    return new Promise((resolve, reject) => {
+      const page = document.createElement('div');
+      Object.assign(page.style, this.resetStyle);
+      Object.assign(page.style, this.pageStyle);
+      if (pageContent.style) Object.assign(page.style, this.isObejct(pageContent.pageStyle));
+      const title = document.createElement('div');
+      if (pageContent.title) title.innerHTML = pageContent.title.innerHTML || '';
+      Object.assign(title.style, this.resetStyle);
+      Object.assign(title.style, this.titleStyle);
+      if (pageContent.title && pageContent.title.style) Object.assign(title.style, this.isObejct(pageContent.title.style));
+      const descLeft = document.createElement('div');
+      if (pageContent.descLeft) descLeft.innerHTML = pageContent.descLeft.innerHTML || '';
+      Object.assign(descLeft.style, this.resetStyle);
+      Object.assign(descLeft.style, this.descLeftStyle);
+      if (pageContent.descLeft && pageContent.descLeft.style) Object.assign(descLeft.style, this.isObejct(pageContent.descLeft.style));
+      const descRight = document.createElement('div');
+      if (pageContent.descRight) descRight.innerHTML = pageContent.descRight.innerHTML || '';
+      Object.assign(descRight.style, this.resetStyle);
+      Object.assign(descRight.style, this.descRightStyle);
+      if (pageContent.descRight && pageContent.descRight.style) Object.assign(descRight.style, this.isObejct(pageContent.descRight.style));
+      const pageCounter = document.createElement('div');
+      Object.assign(pageCounter.style, this.resetStyle);
+      Object.assign(pageCounter.style, this.pageCounterStyle);
+      pageCounter.innerHTML = `${counter}/${total}`;
+      if (pageContent.counter && pageContent.counter.innerHTML) {
+        pageCounter.innerHTML = pageContent.counter.innerHTML.replace('$1', counter);
+        pageCounter.innerHTML = pageCounter.innerHTML.replace('$2', total);
+      }
+      const table = document.createElement('table');
+      Object.assign(table.style, this.resetStyle);
+      Object.assign(table.style, this.tableStyle);
+      if (pageContent.table && pageContent.table.style) Object.assign(table.style, this.isObejct(pageContent.table.style));
+      if (pageContent.table && pageContent.table.thead) this.makeThead(table, Array.isArray(pageContent.table.thead) ? pageContent.table.thead : []);
+      if (pageContent.table && pageContent.table.tbody) this.makeTbody(table, Array.isArray(pageContent.table.tbody) ? pageContent.table.tbody : []);
+      const logo = document.createElement('div');
+      Object.assign(logo.style, this.resetStyle);
+      Object.assign(logo.style, this.logoStyle);
+      let img = false;
+      if (pageContent.logo && pageContent.logo.src && pageContent.logo && pageContent.logo.alt) {
+        img = new Image();
+        if (pageContent.logo && pageContent.logo.src) img.src = pageContent.logo.src;
+        if (pageContent.logo && pageContent.logo.alt) img.alt = pageContent.logo.alt;
+        if (pageContent.logo && pageContent.logo.style) Object.assign(img.style, this.isObejct(pageContent.logo.style));
+        logo.appendChild(img);
+      }
+      page.appendChild(logo);
+      page.appendChild(title);
+      page.appendChild(descLeft);
+      page.appendChild(descRight);
+      page.appendChild(pageCounter);
+      page.appendChild(table);
+      if (!img) return resolve(page);
+      img.onload = () => {
+        console.log('img loaded');
+        resolve(page);
+      };
+    });
   }
 
   makeThead(table, theadData) {
