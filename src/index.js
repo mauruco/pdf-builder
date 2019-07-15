@@ -35,7 +35,7 @@ const pdf = [
 ];
 new PDFFinanceiro(pdf, 'nomeArquivo');
 */
-class PDFFinanceiro {
+class PDFLandscape {
   scaleFactor = 1.62;
 
   scaleFactorPDF = 0.62;
@@ -418,3 +418,5 @@ class PDFFinanceiro {
     })();
   }
 }
+
+export default PDFLandscape;
