@@ -14,8 +14,8 @@ const data = [
       style: {},
     },
     title: { innerHTML: 'FIRST PAGE', style: {} }, // innerHTML aceita tbm html, expl: innerHTML: '<span class="red" style="color: 'red';">Lorem Ipsum</spam>'
-    descLeft: { innerHTML: 'Lorem Ipsum Dollor', style: {} },
-    descRight: { innerHTML: 'Lorem Ipsum Dollor', style: {} },
+    descLeft: { innerHTML: 'Description left', style: {} },
+    descRight: { innerHTML: 'Description right', style: {} },
     counter: { innerHTML: 'page $1/$2', style: {} }, // $1 = pagina atual, $2 = paginas total
     table: {
       style: {},
