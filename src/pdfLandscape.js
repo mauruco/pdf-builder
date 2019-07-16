@@ -38,6 +38,10 @@ export default class PDFLandscape {
     left: '0px',
     width: '1187px',
     height: '842px',
+    maxWidth: '1187px',
+    maxHeight: '842px',
+    minWidth: '1187px',
+    minHeight: '842px',
     backgroundColor: '#FFFFFF',
     overflow: 'hidden',
   };
@@ -158,6 +162,10 @@ export default class PDFLandscape {
     this.pageStyle.left = `${parseInt(this.pageStyle.left, 10) * factor}px`;
     this.pageStyle.width = `${parseInt(this.pageStyle.width, 10) * factor}px`;
     this.pageStyle.height = `${parseInt(this.pageStyle.height, 10) * factor}px`;
+    this.pageStyle.maxWidth = `${parseInt(this.pageStyle.maxWidth, 10) * factor}px`;
+    this.pageStyle.maxHeight = `${parseInt(this.pageStyle.maxHeight, 10) * factor}px`;
+    this.pageStyle.minWidth = `${parseInt(this.pageStyle.minWidth, 10) * factor}px`;
+    this.pageStyle.minHeight = `${parseInt(this.pageStyle.minHeight, 10) * factor}px`;
     this.logoStyle.top = `${parseInt(this.logoStyle.top, 10) * factor}px`;
     this.logoStyle.left = `${parseInt(this.logoStyle.left, 10) * factor}px`;
     this.logoStyle.width = `${parseInt(this.logoStyle.width, 10) * factor}px`;
@@ -275,8 +283,14 @@ export default class PDFLandscape {
             promises.push(new Promise((resolve, reject) => {
               let img = new Image();
               img.src = shot;
-              pdf.addImage(img, 'PNG', 0, 0, (parseInt(this.pageStyle.width, 10) * this.scaleFactorPDF), (parseInt(this.pageStyle.height, 10) * this.scaleFactorPDF));
-              resolve(true);
+              img.onload = () => {
+                console.log(img.width);
+                console.log(img.height);
+                // 1923 1434
+                pdf.setPage(i + 1);
+                pdf.addImage(img, 'PNG', 0, 0, (img.width * this.scaleFactorPDF), (img.height * this.scaleFactorPDF));
+                resolve(true);
+              };
             }));
             if (shots[i + 1]) pdf.addPage();
           });
@@ -353,6 +367,7 @@ export default class PDFLandscape {
     const thead = document.createElement('thead');
     table.appendChild(thead);
     theadData.map((trEle) => {
+      if (!Array.isArray(trEle)) return trEle;
       const tr = document.createElement('tr');
       Object.assign(tr.style, this.resetStyle);
       Object.assign(tr.style, this.trStyle);
@@ -374,6 +389,7 @@ export default class PDFLandscape {
     const tbody = document.createElement('tbody');
     table.appendChild(tbody);
     tbodyData.map((trEle) => {
+      if (!Array.isArray(trEle)) return trEle;
       const tr = document.createElement('tr');
       Object.assign(tr.style, this.resetStyle);
       Object.assign(tr.style, this.trStyle);
