@@ -284,9 +284,6 @@ export default class PDFLandscape {
               let img = new Image();
               img.src = shot;
               img.onload = () => {
-                console.log(img.width);
-                console.log(img.height);
-                // 1923 1434
                 pdf.setPage(i + 1);
                 pdf.addImage(img, 'PNG', 0, 0, (img.width * this.scaleFactorPDF), (img.height * this.scaleFactorPDF));
                 resolve(true);
