@@ -1,5 +1,6 @@
 const PDFLandscape = require('./PDFLandscape').default;
 /*
+!!! Antenção: Script só foi homologado com chrome !!!
 EXPL:
 
 const PDFBuilder = require('pdf-builder');
@@ -43,9 +44,11 @@ const data = [
     title: { innerHTML: 'SECOND PAGE', style: {} },
   },
 ];
-
-PDFBuilder.landscape(data, 'filename');
+// Retorna false se browser não for chrome
+const result = PDFBuilder.landscape(data, 'filename');
+// Ignora o chrome check
+const result = PDFBuilder.landscape(data, 'filename', true);
 */
 module.exports = {
-  landscape: (data, fileName) => new PDFLandscape(data, fileName),
+  landscape: (data, fileName, checkChrome) => new PDFLandscape(data, fileName, checkChrome),
 };
