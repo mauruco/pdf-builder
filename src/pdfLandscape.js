@@ -113,46 +113,45 @@ export default class PDFLandscape {
   };
 
   constructor(pages, fileName, checkChrome) {
-    this.validateBrowser();
+    this.isChrome = this.isChromeBrowser();
     if (!this.isChrome && !checkChrome) return;
     this.fileName = fileName || `not_named_${Date.now()}`;
-    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) this.adjustsStyleForFirefox();
     this.adjustScale(this.scaleFactor);
     this.init(pages);
     // this.test();
   }
 
-  validateBrowser() {
+  isChromeBrowser() {
+    let isChrome = false;
     const isChromium = window.chrome;
     const winNav = window.navigator;
     const vendorName = winNav.vendor;
     const isOpera = typeof window.opr !== 'undefined';
     const isIEedge = winNav.userAgent.indexOf('Edge') > -1;
     const isIOSChrome = winNav.userAgent.match('CriOS');
+    const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     switch (true) {
       case isIOSChrome:
-        this.isChrome = false;
+        isChrome = false;
         break;
       case
         isChromium !== null
         && typeof isChromium !== 'undefined'
         && vendorName === 'Google Inc.'
         && isOpera === false
-        && isIEedge === false:
-        this.isChrome = true;
+        && isIEedge === false
+        && isFirefox === false:
+        isChrome = true;
         break;
       default:
-        this.isChrome = false;
+        isChrome = false;
     }
+
+    return isChrome;
   }
 
   isObejct(obj) {
     return Object.prototype.toString.call(obj) === '[object Object]' ? obj : {};
-  }
-
-  adjustsStyleForFirefox() {
-    this.thStyle.border = '2px solid #000000';
-    this.tdStyle.border = '2px solid #000000';
   }
 
   adjustScale(factor) {
@@ -263,7 +262,7 @@ export default class PDFLandscape {
       (async () => {
         try {
           document.body.appendChild(html);
-          let imgUrl = await domtoimage.toPng(html);
+          let imgUrl = await domtoimage.toJpeg(html, { quality: 0.95 });
           html.remove();
           resolve(imgUrl);
         } catch (error) {
@@ -285,7 +284,7 @@ export default class PDFLandscape {
               img.src = shot;
               img.onload = () => {
                 pdf.setPage(i + 1);
-                pdf.addImage(img, 'PNG', 0, 0, (img.width * this.scaleFactorPDF), (img.height * this.scaleFactorPDF));
+                pdf.addImage(img, 'JPG', 0, 0, (img.width * this.scaleFactorPDF), (img.height * this.scaleFactorPDF));
                 resolve(true);
               };
             }));
