@@ -2,8 +2,10 @@ import * as jsPDF from 'jspdf';
 import domtoimage from 'dom-to-image';
 import loaderSrc from './loaderSrc';
 
-export default class PDFLandscape {
+export default class PDFTable {
   isChrome = false;
+
+  isPortrait = false;
 
   scaleFactor = 1.62;
 
@@ -112,9 +114,13 @@ export default class PDFLandscape {
     padding: '3px',
   };
 
-  constructor(pages, fileName, checkChrome) {
+  constructor(pages, fileName, format, checkChrome) {
     this.isChrome = this.isChromeBrowser();
     if (!this.isChrome && !checkChrome) return;
+    if (format === 'p') {
+      this.isPortrait = true;
+      this.adjustToPortrait();
+    }
     this.fileName = fileName || `not_named_${Date.now()}`;
     this.adjustScale(this.scaleFactor);
     this.init(pages);
@@ -152,6 +158,25 @@ export default class PDFLandscape {
 
   isObejct(obj) {
     return Object.prototype.toString.call(obj) === '[object Object]' ? obj : {};
+  }
+
+  adjustToPortrait() {
+    const pageStylePortrait = {
+      width: this.pageStyle.height,
+      height: this.pageStyle.width,
+      maxWidth: this.pageStyle.maxHeight,
+      maxHeight: this.pageStyle.maxWidth,
+      minWidth: this.pageStyle.minHeight,
+      minHeight: this.pageStyle.minWidth,
+    };
+
+    const tableStylePortrait = {
+      maxWidth: this.tableStyle.maxHeight,
+      maxHeight: this.tableStyle.maxWidth,
+    };
+
+    Object.assign(this.pageStyle, pageStylePortrait);
+    Object.assign(this.tableStyle, tableStylePortrait);
   }
 
   adjustScale(factor) {
@@ -276,7 +301,7 @@ export default class PDFLandscape {
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-          const pdf = new jsPDF('l', 'pt', 'a3');
+          const pdf = new jsPDF(this.isPortrait ? 'p' : 'l', 'pt', 'a3');
           const promises = [];
           shots.map((shot, i) => {
             promises.push(new Promise((resolve, reject) => {

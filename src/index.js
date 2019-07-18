@@ -1,8 +1,7 @@
-const PDFLandscape = require('./PDFLandscape').default;
+const PDFTable = require('./PDFTable').default;
 /*
-!!! Antenção: Script só foi homologado com chrome !!!
 EXPL:
-
+!!! Antenção: Script só foi homologado com chrome !!!
 const PDFBuilder = require('pdf-builder');
 
 const data = [
@@ -45,10 +44,19 @@ const data = [
   },
 ];
 // Retorna false se browser não for chrome
-const result = PDFBuilder.landscape(data, 'filename');
-// Ignora o chrome check
-const result = PDFBuilder.landscape(data, 'filename', true);
+const result = PDFBuilder.table(data, 'filename');
+// Formato portrait e ignora a verificação de chrome
+const result = PDFBuilder.table(data, 'filename', 'p', true);
 */
 module.exports = {
-  landscape: (data, fileName, checkChrome) => new PDFLandscape(data, fileName, checkChrome),
+  /**
+   * @param {Array}  data         Array com obj page contendo os dados de cada página
+   * @param {string} fileName     Nome final do pdf
+   * @param {string} format       Opcional (default 'l') Formato do pdf 'l' ou 'p' (lanscape, portrait)
+   * @param {boolean} checkChrome Opcional (default true), ignora a verificação de chrome
+  */
+  table: (data, fileName, format, checkChrome) => {
+    const pdf = new PDFTable(data, fileName, format, checkChrome);
+    return pdf.isChrome;
+  },
 };
