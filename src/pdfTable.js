@@ -1,6 +1,6 @@
 import * as jsPDF from 'jspdf';
 import domtoimage from 'dom-to-image';
-import loaderSrc from './loaderSrc';
+import svgLoader from './loader.svg';
 
 export default class PDFTable {
   isChrome = false;
@@ -31,6 +31,8 @@ export default class PDFTable {
   }
 
   loaderStyle = {
+    display: 'inline-block',
+    width: '50px',
   };
 
   pageStyle = {
@@ -217,19 +219,19 @@ export default class PDFTable {
 
   init(pages) {
     (async () => {
-      const loader = this.addLoader('Preparando seu PDF<br />');
+      const loader = this.addLoader('Preparando seu PDF');
       const shots = await this.shots(pages);
       setTimeout(() => {
-        loader.update('Estamos quase lá<br />');
+        loader.update('Estamos quase lá');
         setTimeout(async () => {
           const pdf = await this.shotsToPDF(shots);
-          loader.update('Pronto<br />');
+          loader.update('Pronto');
           pdf.save(`${this.fileName}.pdf`);
           setTimeout(() => {
             loader.remove();
-          }, 500);
-        }, 1000);
-      }, 1000);
+          }, 1000);
+        }, 500);
+      }, 500);
     })();
   }
 
@@ -240,15 +242,16 @@ export default class PDFTable {
     const span = document.createElement('span');
     span.innerHTML = txt;
     Object.assign(span.style, this.resetStyle);
-    Object.assign(span.style, this.loaderStyle);
     div.appendChild(span);
+    const br = document.createElement('br');
+    div.appendChild(br);
     div.update = (newTxt) => {
       const sp = div.getElementsByTagName('span')[0];
       sp.innerHTML = newTxt;
     };
-    const img = document.createElement('img');
-    img.alt = 'loader';
-    img.src = loaderSrc();
+    const img = document.createElement('span');
+    Object.assign(img.style, this.loaderStyle);
+    img.innerHTML = svgLoader;
     const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     Object.assign(div.style, { width: `${width}px`, height: `${height}px` });
