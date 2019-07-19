@@ -121,8 +121,8 @@ export default class PDFTable {
    *
    * @param {Array} pages Array com any objetos page
    * @param {string} fileName Nome do arquivo
-   * @param {string} format 'l' ou 'p', Landscape ou Portrait
-   * @param {boolean} checkChrome Ignora a verificação seo browser é chrome
+   * @param {string} [format='l'] 'l' ou 'p', Landscape ou Portrait
+   * @param {boolean} [checkChrome=true] Ignora a verificação seo browser é chrome
    */
   constructor(pages, fileName, format, checkChrome) {
     this.isChrome = this.isChromeBrowser();
@@ -192,7 +192,7 @@ export default class PDFTable {
 
   /**
    *
-   * @param {*} obj Verefica se o obj passado é um literal
+   * @param {Object} obj Verefica se o obj passado é um literal
    */
   isObejct(obj) {
     return Object.prototype.toString.call(obj) === '[object Object]' ? obj : {};
@@ -222,42 +222,52 @@ export default class PDFTable {
 
   /**
    *
+   * @param {string} str Propriedade css
+   * @param {number} factor Fator par multiplicação
+   * @returns {string} Propriedade css com valor alterado
+   */
+  scale(str, factor) {
+    return `${parseInt(str, 10) * factor}px`;
+  }
+
+  /**
+   *
    * @param {number} factor Fator para ajustar a scale e smpificar downscale
    */
   adjustScale(factor) {
-    this.resetStyle.margin = `${parseInt(this.resetStyle.margin, 10) * factor}px`;
-    this.resetStyle.padding = `${parseInt(this.resetStyle.padding, 10) * factor}px`;
-    this.pageStyle.top = `${parseInt(this.pageStyle.top, 10) * factor}px`;
-    this.pageStyle.left = `${parseInt(this.pageStyle.left, 10) * factor}px`;
-    this.pageStyle.width = `${parseInt(this.pageStyle.width, 10) * factor}px`;
-    this.pageStyle.height = `${parseInt(this.pageStyle.height, 10) * factor}px`;
-    this.pageStyle.maxWidth = `${parseInt(this.pageStyle.maxWidth, 10) * factor}px`;
-    this.pageStyle.maxHeight = `${parseInt(this.pageStyle.maxHeight, 10) * factor}px`;
-    this.pageStyle.minWidth = `${parseInt(this.pageStyle.minWidth, 10) * factor}px`;
-    this.pageStyle.minHeight = `${parseInt(this.pageStyle.minHeight, 10) * factor}px`;
-    this.logoStyle.top = `${parseInt(this.logoStyle.top, 10) * factor}px`;
-    this.logoStyle.left = `${parseInt(this.logoStyle.left, 10) * factor}px`;
-    this.logoStyle.width = `${parseInt(this.logoStyle.width, 10) * factor}px`;
-    this.logoStyle.height = `${parseInt(this.logoStyle.height, 10) * factor}px`;
-    this.titleStyle.top = `${parseInt(this.titleStyle.top, 10) * factor}px`;
-    this.titleStyle.left = `${parseInt(this.titleStyle.left, 10) * factor}px`;
-    this.titleStyle.fontSize = `${parseInt(this.titleStyle.fontSize, 10) * factor}px`;
-    this.descLeftStyle.top = `${parseInt(this.descLeftStyle.top, 10) * factor}px`;
-    this.descLeftStyle.left = `${parseInt(this.descLeftStyle.left, 10) * factor}px`;
-    this.descLeftStyle.fontSize = `${parseInt(this.descLeftStyle.fontSize, 10) * factor}px`;
-    this.descRightStyle.top = `${parseInt(this.descRightStyle.top, 10) * factor}px`;
-    this.descRightStyle.right = `${parseInt(this.descRightStyle.right, 10) * factor}px`;
-    this.descRightStyle.fontSize = `${parseInt(this.descRightStyle.fontSize, 10) * factor}px`;
-    this.pageCounterStyle.bottom = `${parseInt(this.pageCounterStyle.bottom, 10) * factor}px`;
-    this.pageCounterStyle.right = `${parseInt(this.pageCounterStyle.right, 10) * factor}px`;
-    this.pageCounterStyle.fontSize = `${parseInt(this.pageCounterStyle.fontSize, 10) * factor}px`;
-    this.tableStyle.top = `${parseInt(this.tableStyle.top, 10) * factor}px`;
-    this.tableStyle.left = `${parseInt(this.tableStyle.left, 10) * factor}px`;
-    this.tableStyle.fontSize = `${parseInt(this.tableStyle.fontSize, 10) * factor}px`;
-    this.tableStyle.maxWidth = `${parseInt(this.tableStyle.maxWidth, 10) * factor}px`;
-    this.tableStyle.maxHeight = `${parseInt(this.tableStyle.maxHeight, 10) * factor}px`;
-    this.thStyle.padding = `${parseInt(this.thStyle.padding, 10) * factor}px`;
-    this.tdStyle.padding = `${parseInt(this.tdStyle.padding, 10) * factor}px`;
+    this.resetStyle.margin = this.scale(this.resetStyle.margin, factor);
+    this.resetStyle.padding = this.scale(this.resetStyle.padding, factor);
+    this.pageStyle.top = this.scale(this.pageStyle.top, factor);
+    this.pageStyle.left = this.scale(this.pageStyle.left, factor);
+    this.pageStyle.width = this.scale(this.pageStyle.width, factor);
+    this.pageStyle.height = this.scale(this.pageStyle.height, factor);
+    this.pageStyle.maxWidth = this.scale(this.pageStyle.maxWidth, factor);
+    this.pageStyle.maxHeight = this.scale(this.pageStyle.maxHeight, factor);
+    this.pageStyle.minWidth = this.scale(this.pageStyle.minWidth, factor);
+    this.pageStyle.minHeight = this.scale(this.pageStyle.minHeight, factor);
+    this.logoStyle.top = this.scale(this.logoStyle.top, factor);
+    this.logoStyle.left = this.scale(this.logoStyle.left, factor);
+    this.logoStyle.width = this.scale(this.logoStyle.width, factor);
+    this.logoStyle.height = this.scale(this.logoStyle.height, factor);
+    this.titleStyle.top = this.scale(this.titleStyle.top, factor);
+    this.titleStyle.left = this.scale(this.titleStyle.left, factor);
+    this.titleStyle.fontSize = this.scale(this.titleStyle.fontSize, factor);
+    this.descLeftStyle.top = this.scale(this.descLeftStyle.top, factor);
+    this.descLeftStyle.left = this.scale(this.descLeftStyle.left, factor);
+    this.descLeftStyle.fontSize = this.scale(this.descLeftStyle.fontSize, factor);
+    this.descRightStyle.top = this.scale(this.descRightStyle.top, factor);
+    this.descRightStyle.right = this.scale(this.descRightStyle.right, factor);
+    this.descRightStyle.fontSize = this.scale(this.descRightStyle.fontSize, factor);
+    this.pageCounterStyle.bottom = this.scale(this.pageCounterStyle.bottom, factor);
+    this.pageCounterStyle.right = this.scale(this.pageCounterStyle.right, factor);
+    this.pageCounterStyle.fontSize = this.scale(this.pageCounterStyle.fontSize, factor);
+    this.tableStyle.top = this.scale(this.tableStyle.top, factor);
+    this.tableStyle.left = this.scale(this.tableStyle.left, factor);
+    this.tableStyle.fontSize = this.scale(this.tableStyle.fontSize, factor);
+    this.tableStyle.maxWidth = this.scale(this.tableStyle.maxWidth, factor);
+    this.tableStyle.maxHeight = this.scale(this.tableStyle.maxHeight, factor);
+    this.thStyle.padding = this.scale(this.thStyle.padding, factor);
+    this.tdStyle.padding = this.scale(this.tdStyle.padding, factor);
   }
 
   /**
@@ -446,9 +456,7 @@ export default class PDFTable {
         page.appendChild(pageCounter);
         page.appendChild(table);
         if (!img) return resolve(page);
-        img.onload = () => {
-          resolve(page);
-        };
+        img.onload = () => resolve(page);
       } catch (error) {
         reject(error);
       }
@@ -508,77 +516,76 @@ export default class PDFTable {
       return tr;
     });
   }
-  /** CONCEITO
-  /**
-   * Usada em função conceito
-   * @param {string} base64Image String base64 da imagem
-   * @param {boolean} isClockwise Qual direçao para rodar
-   * @returns {Promise} Com novo string base64
-   *
-  rotateBase64Image90deg(base64Image, isClockwise) {
-    return new Promise((resolve, reject) => {
-      try {
-        let canvas = document.createElement('canvas');
-        document.body.appendChild(canvas);
-        let ctx = canvas.getContext('2d');
-        let img = new Image();
-        img.src = base64Image;
-        img.onload = () => {
-          canvas.height = img.width;
-          canvas.width = img.height;
-          if (isClockwise) {
-            ctx.rotate(90 * Math.PI / 180);
-            ctx.translate(0, -canvas.width);
-          } else {
-            ctx.rotate(-90 * Math.PI / 180);
-            ctx.translate(-canvas.height, 0);
-          }
-          ctx.drawImage(img, 0, 0);
-          let newBase64Image = canvas.toDataURL('image/png', 1.0);
-          canvas.remove();
-          resolve(newBase64Image);
-        };
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
 
-  /**
-   * Função conceito
-   *
-  concept() {
-    (async () => {
-      try {
-        const div = document.createElement('div');
-        Object.assign(div.style, {
-          position: 'absolute', top: '0px', left: '0px', backgroundColor: 'blue',
-        });
-        div.innerHTML = 'Hello World';
-        document.body.appendChild(div);
-        let imgUrl = await domtoimage.toPng(div, {});
-        imgUrl = await this.rotateBase64Image90deg(imgUrl, true);
-        div.remove();
-        let img = new Image();
-        img.src = imgUrl;
-        document.body.appendChild(img);
-        img.onload = () => {
-          // 730x910 pdfPageSize
-          const pdf = new jsPDF('p', 'pt', 'letter');
-          pdf.addImage(img, 'PNG', 0, 0, (img.width * 0.62), (img.height * 0.62));
-          pdf.addImage(img, 'PNG', 430, 0, (img.width * 0.62), (img.height * 0.62));
-          //
-          // pdf.addPage(612, 791);
-          // pdf.setPage(2);
-          // //
-          // pdf.addImage(img, 'PNG', 0, 0, (img.width * 0.62), (img.height * 0.62));
-          // pdf.addImage(img, 'PNG', 430, 0, (img.width * 0.62), (img.height * 0.62));
-          pdf.save('Test.pdf');
-        };
-      } catch (error) {
-        // console.log(error);
-      }
-    })();
-  }
-  */
+  // /**
+  //  * Função conceito
+  //  */
+  // concept() {
+  //   (async () => {
+  //     try {
+  //       const div = document.createElement('div');
+  //       Object.assign(div.style, {
+  //         position: 'absolute', top: '0px', left: '0px', backgroundColor: 'blue',
+  //       });
+  //       div.innerHTML = 'Hello World';
+  //       document.body.appendChild(div);
+  //       let imgUrl = await domtoimage.toPng(div, {});
+  //       imgUrl = await this.rotateBase64Image90deg(imgUrl, true);
+  //       div.remove();
+  //       let img = new Image();
+  //       img.src = imgUrl;
+  //       document.body.appendChild(img);
+  //       img.onload = () => {
+  //         // 730x910 pdfPageSize
+  //         const pdf = new jsPDF('p', 'pt', 'letter');
+  //         pdf.addImage(img, 'PNG', 0, 0, (img.width * 0.62), (img.height * 0.62));
+  //         pdf.addImage(img, 'PNG', 430, 0, (img.width * 0.62), (img.height * 0.62));
+  //         //
+  //         // pdf.addPage(612, 791);
+  //         // pdf.setPage(2);
+  //         // //
+  //         // pdf.addImage(img, 'PNG', 0, 0, (img.width * 0.62), (img.height * 0.62));
+  //         // pdf.addImage(img, 'PNG', 430, 0, (img.width * 0.62), (img.height * 0.62));
+  //         pdf.save('Test.pdf');
+  //       };
+  //     } catch (error) {
+  //       // console.log(error);
+  //     }
+  //   })();
+  // }
+
+  // /**
+  //  * Usada em função conceito
+  //  * @param {string} base64Image String base64 da imagem
+  //  * @param {boolean} isClockwise Qual direçao para rodar
+  //  * @returns {Promise} Com novo string base64
+  //  */
+  // rotateBase64Image90deg(base64Image, isClockwise) {
+  //   return new Promise((resolve, reject) => {
+  //     try {
+  //       let canvas = document.createElement('canvas');
+  //       document.body.appendChild(canvas);
+  //       let ctx = canvas.getContext('2d');
+  //       let img = new Image();
+  //       img.src = base64Image;
+  //       img.onload = () => {
+  //         canvas.height = img.width;
+  //         canvas.width = img.height;
+  //         if (isClockwise) {
+  //           ctx.rotate(90 * Math.PI / 180);
+  //           ctx.translate(0, -canvas.width);
+  //         } else {
+  //           ctx.rotate(-90 * Math.PI / 180);
+  //           ctx.translate(-canvas.height, 0);
+  //         }
+  //         ctx.drawImage(img, 0, 0);
+  //         let newBase64Image = canvas.toDataURL('image/png', 1.0);
+  //         canvas.remove();
+  //         resolve(newBase64Image);
+  //       };
+  //     } catch (error) {
+  //       reject(error);
+  //     }
+  //   });
+  // }
 }
