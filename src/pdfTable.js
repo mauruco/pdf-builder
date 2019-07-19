@@ -134,7 +134,6 @@ export default class PDFTable {
     this.fileName = fileName || `not_named_${Date.now()}`;
     this.adjustScale(this.scaleFactor);
     this.init(pages, this.isPortrait);
-    // this.concept();
   }
 
   /**
@@ -509,13 +508,13 @@ export default class PDFTable {
       return tr;
     });
   }
-
+  /** CONCEITO
   /**
    * Usada em função conceito
    * @param {string} base64Image String base64 da imagem
    * @param {boolean} isClockwise Qual direçao para rodar
    * @returns {Promise} Com novo string base64
-   */
+   *
   rotateBase64Image90deg(base64Image, isClockwise) {
     return new Promise((resolve, reject) => {
       try {
@@ -547,7 +546,7 @@ export default class PDFTable {
 
   /**
    * Função conceito
-   */
+   *
   concept() {
     (async () => {
       try {
@@ -581,4 +580,5 @@ export default class PDFTable {
       }
     })();
   }
+  */
 }
