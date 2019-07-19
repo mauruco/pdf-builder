@@ -1,4 +1,4 @@
-const PDFTable = require('./PDFTable').default;
+// @ts-check
 /*
 EXPL:
 !!! Antenção: Script só foi homologado com chrome !!!
@@ -48,6 +48,8 @@ const result = PDFBuilder.table(data, 'filename');
 // Formato portrait e ignora a verificação de chrome
 const result = PDFBuilder.table(data, 'filename', 'p', true);
 */
+const PDFTable = require('./PDFTable').default;
+
 module.exports = {
   /**
    * @param {Array}  data         Array com obj page contendo os dados de cada página
