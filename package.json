@@ -14,7 +14,7 @@
   "dependencies": {},
   "devDependencies": {
     "dom-to-image": "^2.6.0",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "@babel/core": "^7.5.4",
     "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/plugin-transform-async-to-generator": "^7.5.0",
